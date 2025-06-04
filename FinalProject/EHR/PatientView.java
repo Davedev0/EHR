@@ -20,8 +20,8 @@ public class PatientView {
                 System.out.println("[1] View Patient Records");
                 System.out.println("[2] Create New Records");
                 System.out.println("[3] Update Patient Records");
-                System.out.println("[5] Search Patient Records");
-                System.out.println("[4] Remove Existing Record");
+                System.out.println("[4] Search Patient Records");
+                System.out.println("[5] Remove Existing Record");
                 System.out.println("[6] Back To Menu");
                 System.out.println(ConsoleColors.GREEN + "============================" + ConsoleColors.RESET);
                 int choice = InputValidator.getIntInput("Enter choice: ", 1, 6);
@@ -39,7 +39,7 @@ public class PatientView {
                         searchPatient();
                         break;
                     case 5: 
-                        deletePatient();
+                        removePatient();
                         break;
                     case 6: 
                         back = true;
@@ -57,7 +57,9 @@ public class PatientView {
     private void viewPatients() {
     try {
         MenuUtil.clearScreen();
-        System.out.println(ConsoleColors.GREEN + "=====LIST OF PATIENTS=====" + ConsoleColors.RESET);
+        System.out.println("+=====================================+");
+        System.out.println("|      LIST OF PATIENT RECORDS        |");
+        System.out.println("+=====================================+");
         
         List<Patient> patients = patientService.getAllPatients();
         if (patients.isEmpty()) {
@@ -96,7 +98,9 @@ public class PatientView {
     private void createPatient() {
     try {
         MenuUtil.clearScreen();
-        System.out.println(ConsoleColors.GREEN + "=====CREATE PATIENT RECORDS=====" + ConsoleColors.RESET);
+        System.out.println("+=====================================+");
+        System.out.println("|       CREATE PATIENT RECORDS        |");
+        System.out.println("+=====================================+");
         
         int id = patientService.getNextId();
         System.out.println("Patient ID: " + ConsoleColors.CYAN + id + ConsoleColors.RESET);
@@ -136,7 +140,9 @@ public class PatientView {
 private void updatePatient() {
     try {
         MenuUtil.clearScreen();
-        System.out.println(ConsoleColors.GREEN + "=====UPDATE PATIENT RECORDS=====" + ConsoleColors.RESET);
+        System.out.println("+=====================================+");
+        System.out.println("|       UPDATE PATIENT RECORDS        |");
+        System.out.println("+=====================================+");
         
         int id = InputValidator.getIntInput("Enter Patient ID: ", 1, Integer.MAX_VALUE);
         Patient patient = patientService.getPatientById(id);
@@ -191,10 +197,42 @@ private void updatePatient() {
     }
 }
     
-    private void deletePatient() {
+    private void searchPatient() {
         try {
             MenuUtil.clearScreen();
-            System.out.println(ConsoleColors.GREEN + "=====REMOVE PATIENT RECORD=====" + ConsoleColors.RESET);
+           System.out.println("+=====================================+");
+           System.out.println("|       SEARCH PATIENT RECORDS        |");
+           System.out.println("+=====================================+");
+            
+            int id = InputValidator.getIntInput("Enter Patient ID: ", 1, Integer.MAX_VALUE);
+            Patient patient = patientService.getPatientById(id);
+            
+            if (patient == null) {
+                System.out.println(ConsoleColors.RED + "Patient not found" + ConsoleColors.RESET);
+            } else {
+                System.out.println("\nPatient Record:");
+                System.out.println(patient);
+                
+                Doctor doctor = doctorService.getDoctorById(patient.getDoctorId());
+                if (doctor != null) {
+                    System.out.println("\nAssigned Doctor:");
+                    System.out.println(doctor);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(ConsoleColors.RED + "Error searching patient: " + e.getMessage() + ConsoleColors.RESET);
+        } finally {
+            InputValidator.pressEnterToContinue();
+        }
+    }
+    
+    
+    private void removePatient() {
+        try {
+            MenuUtil.clearScreen();
+            System.out.println("+=====================================+");
+            System.out.println("|      REMOVE EXISTING RECORDS        |");
+            System.out.println("+=====================================+");
             
             int id = InputValidator.getIntInput("Enter Patient ID: ", 1, Integer.MAX_VALUE);
             Patient patient = patientService.getPatientById(id);
@@ -223,31 +261,5 @@ private void updatePatient() {
             InputValidator.pressEnterToContinue();
         }
     }
-
-    private void searchPatient() {
-        try {
-            MenuUtil.clearScreen();
-            System.out.println(ConsoleColors.GREEN + "=====SEARCH PATIENT RECORDS=====" + ConsoleColors.RESET);
-            
-            int id = InputValidator.getIntInput("Enter Patient ID: ", 1, Integer.MAX_VALUE);
-            Patient patient = patientService.getPatientById(id);
-            
-            if (patient == null) {
-                System.out.println(ConsoleColors.RED + "Patient not found" + ConsoleColors.RESET);
-            } else {
-                System.out.println("\nPatient Record:");
-                System.out.println(patient);
-                
-                Doctor doctor = doctorService.getDoctorById(patient.getDoctorId());
-                if (doctor != null) {
-                    System.out.println("\nAssigned Doctor:");
-                    System.out.println(doctor);
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(ConsoleColors.RED + "Error searching patient: " + e.getMessage() + ConsoleColors.RESET);
-        } finally {
-            InputValidator.pressEnterToContinue();
-        }
-    }
+    
 }

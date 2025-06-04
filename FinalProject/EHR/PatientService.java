@@ -5,7 +5,7 @@ import java.util.List;
 
 public class PatientService {
     private List<Patient> patients = new ArrayList<>();
-    private int nextId = 1;
+    private int nextId = 1000;
     private DoctorService doctorService;
 
     public PatientService(DoctorService doctorService) {

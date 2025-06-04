@@ -14,10 +14,11 @@ public class DoctorView {
         while (!back) {
             try {
                 MenuUtil.clearScreen();
-                 System.out.println(ConsoleColors.GREEN + "=====DOCTOR MANAGEMENT=====" + ConsoleColors.RESET);
+                System.out.println(ConsoleColors.GREEN + "=====DOCTOR MANAGEMENT=====" + ConsoleColors.RESET);
                 System.out.println("[1] View All Doctors");
                 System.out.println("[2] Add Doctor");
                 System.out.println("[3] Back To Menu");
+                System.out.println(ConsoleColors.GREEN + "===========================" + ConsoleColors.RESET);
                 System.out.println();
 
                 int choice = InputValidator.getIntInput("Enter choice: ", 1, 3);

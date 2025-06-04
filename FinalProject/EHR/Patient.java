@@ -56,8 +56,9 @@ public class Patient {
     public String toString() {
         return ConsoleColors.CYAN + "ID: " + id + ConsoleColors.RESET + "\n" +
                "Name: " + name + "\n" +
-               "Age: " + age +  
-               "DOB: " + dob + " | Gender: " + gender + "\n" +
+               "Age: " + age + "\n" +
+               "DOB: " + dob + "\n" +
+               "Gender: " + gender + "\n" +
                "Contact: " + contact + "\n" +
                "Address: " + address + "\n" +
                "Emergency Contact: " + emergencyContact + "\n" +
