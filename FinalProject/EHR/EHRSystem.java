@@ -2,6 +2,10 @@ package FinalProject.EHR;
 
 public class EHRSystem {
 
+    public static void main(String[] args) {
+        start();
+    }
+
     public static void start() {
         try {
             // Initialize services
@@ -9,8 +13,8 @@ public class EHRSystem {
             PatientService patientService = new PatientService(doctorService);
             
             // Initialize views
-            DoctorView doctorView = new DoctorView(doctorService);
             PatientView patientView = new PatientView(patientService, doctorService);
+            DoctorView doctorView = new DoctorView(doctorService, patientView);
             
             // Display welcome message
             MenuUtil.displayWelcomeMessage();
@@ -44,7 +48,8 @@ public class EHRSystem {
                 }
             }
             
-            System.out.println(ConsoleColors.BLUE_BOLD + "System shutdown successfully." + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.BLUE_BOLD + "\nThank you for using the Electronic Health Records System!" + ConsoleColors.RESET);
+            System.out.println("System shutdown successfully.");
         } catch (Exception e) {
             System.out.println(ConsoleColors.RED + "A critical error occurred: " + e.getMessage() + ConsoleColors.RESET);
             System.out.println("Please contact system administrator.");

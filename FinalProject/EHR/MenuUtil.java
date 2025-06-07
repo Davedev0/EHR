@@ -47,9 +47,8 @@ public class MenuUtil {
         System.out.println("+=========================================+");
         System.out.println("|  [1] Patient Management                 |");             
         System.out.println("|  [2] Doctor Portal                      |");
-        System.out.println("|  [3] Archived Records                   |");
-        System.out.println("|  [4] About Us                           |");
-        System.out.println("|  [5] Exit Program                       |");
+        System.out.println("|  [3] About Us                           |");
+        System.out.println("|  [4] Exit Program                       |");
         System.out.println("+=========================================+");
     }
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 public class PatientService {
     private List<Patient> patients = new ArrayList<>();
+    private List<Patient> archivedPatients = new ArrayList<>();
     private int nextId = 1000;
     private DoctorService doctorService;
 
@@ -24,9 +25,12 @@ public class PatientService {
         return new ArrayList<>(patients);
     }
 
+    public List<Patient> getArchivedPatients() {
+        return new ArrayList<>(archivedPatients);
+    }
+
     public Patient getPatientById(int id) {
         try {
-            // Replaced lambda with traditional loop
             for (Patient patient : patients) {
                 if (patient.getId() == id) {
                     return patient;
@@ -35,6 +39,20 @@ public class PatientService {
             return null;
         } catch (Exception e) {
             System.out.println(ConsoleColors.RED + "Error finding patient: " + e.getMessage() + ConsoleColors.RESET);
+            return null;
+        }
+    }
+
+    public Patient getArchivedPatientById(int id) {
+        try {
+            for (Patient patient : archivedPatients) {
+                if (patient.getId() == id) {
+                    return patient;
+                }
+            }
+            return null;
+        } catch (Exception e) {
+            System.out.println(ConsoleColors.RED + "Error finding archived patient: " + e.getMessage() + ConsoleColors.RESET);
             return null;
         }
     }
@@ -56,9 +74,26 @@ public class PatientService {
         }
     }
 
+    public void archivePatient(int id) {
+        try {
+            Patient toArchive = null;
+            for (Patient patient : patients) {
+                if (patient.getId() == id) {
+                    toArchive = patient;
+                    break;
+                }
+            }
+            if (toArchive != null) {
+                archivedPatients.add(toArchive);
+                patients.remove(toArchive);
+            }
+        } catch (Exception e) {
+            System.out.println(ConsoleColors.RED + "Error archiving patient: " + e.getMessage() + ConsoleColors.RESET);
+        }
+    }
+
     public void deletePatient(int id) {
         try {
-            // Replaced lambda with traditional loop
             List<Patient> toRemove = new ArrayList<>();
             for (Patient patient : patients) {
                 if (patient.getId() == id) {
