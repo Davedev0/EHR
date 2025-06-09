@@ -16,16 +16,18 @@ public class PatientView {
         while (!back) {
             try {
                 MenuUtil.clearScreen();
-                System.out.println("+=========================================+");
-                System.out.println("|        PATIENT MANAGEMENT SYSTEM        |");
-                System.out.println("+=========================================+");
-                System.out.println("|  [1] View Patient Records               |");
-                System.out.println("|  [2] Create New Records                 |");
-                System.out.println("|  [3] Update Patient Records             |");
-                System.out.println("|  [4] Search Patient Records             |");
-                System.out.println("|  [5] Remove Existing Record             |");
-                System.out.println("|  [6] Back To Menu                       |");
-                System.out.println("+=========================================+");
+                System.out.println(
+                    "+=========================================+\n" +
+                    "|        PATIENT MANAGEMENT SYSTEM        |\n" +
+                    "+=========================================+\n" +
+                    "|  [1] View Patient Records               |\n" +
+                    "|  [2] Create New Records                 |\n" +
+                    "|  [3] Update Patient Records             |\n" +
+                    "|  [4] Search Patient Records             |\n" +
+                    "|  [5] Remove Existing Record             |\n" +
+                    "|  [6] Back To Main Menu                  |\n" +
+                    "+=========================================+"
+                );
                 int choice = InputValidator.getIntInput("Enter choice: ", 1, 6);
                 switch (choice) {
                     case 1: 
@@ -59,9 +61,11 @@ public class PatientView {
     private void viewPatients() {
         try {
             MenuUtil.clearScreen();
-            System.out.println("+=====================================+");
-            System.out.println("|      LIST OF PATIENT RECORDS        |");
-            System.out.println("+=====================================+");
+            System.out.println(
+                "+=====================================+\n" +
+                "|       LIST OF PATIENT RECORDS       |\n" +
+                "+=====================================+"
+            );
             
             List<Patient> patients = patientService.getAllPatients();
             if (patients.isEmpty()) {
@@ -100,9 +104,11 @@ public class PatientView {
     private void createPatient() {
         try {
             MenuUtil.clearScreen();
-            System.out.println("+=====================================+");
-            System.out.println("|       CREATE PATIENT RECORDS        |");
-            System.out.println("+=====================================+");
+            System.out.println(
+                "+=====================================+\n" +
+                "|       CREATE PATIENT RECORDS        |\n" +
+                "+=====================================+"
+            );
             
             int id = patientService.getNextId();
             System.out.println("Patient ID: " + ConsoleColors.CYAN + id + ConsoleColors.RESET);
@@ -142,9 +148,11 @@ public class PatientView {
     private void updatePatient() {
         try {
             MenuUtil.clearScreen();
-            System.out.println("+=====================================+");
-            System.out.println("|       UPDATE PATIENT RECORDS        |");
-            System.out.println("+=====================================+");
+            System.out.println(
+                "+=====================================+\n" +
+                "|       UPDATE PATIENT RECORDS        |\n" +
+                "+=====================================+"
+            );
             
             int id = InputValidator.getIntInput("Enter Patient ID: ", 1, Integer.MAX_VALUE);
             Patient patient = patientService.getPatientById(id);
@@ -202,9 +210,11 @@ public class PatientView {
     private void searchPatient() {
         try {
             MenuUtil.clearScreen();
-            System.out.println("+=====================================+");
-            System.out.println("|       SEARCH PATIENT RECORDS        |");
-            System.out.println("+=====================================+");
+            System.out.println(
+                "+=====================================+\n" +
+                "|        SEARCH PATIENT RECORDS       |\n" +
+                "+=====================================+"
+            );
             
             int id = InputValidator.getIntInput("Enter Patient ID: ", 1, Integer.MAX_VALUE);
             Patient patient = patientService.getPatientById(id);
@@ -231,9 +241,11 @@ public class PatientView {
     private void archivePatient() {
         try {
             MenuUtil.clearScreen();
-            System.out.println("+=====================================+");
-            System.out.println("|      ARCHIVE PATIENT RECORD         |");
-            System.out.println("+=====================================+");
+            System.out.println(
+                "+=====================================+\n" +
+                "|        ARCHIVE PATIENT RECORD       |\n" +
+                "+=====================================+"
+            );
             
             System.out.println(ConsoleColors.YELLOW + "\nNote: Patient records will be archived, not deleted.");
             System.out.println("Archived records can be accessed through the Archived Records menu." + ConsoleColors.RESET);
@@ -278,9 +290,11 @@ public class PatientView {
     public void viewArchivedPatients() {
         try {
             MenuUtil.clearScreen();
-            System.out.println("+=====================================+");
-            System.out.println("|      ARCHIVED PATIENT RECORDS      |");
-            System.out.println("+=====================================+");
+            System.out.println(
+                "+=====================================+\n" +
+                "|      ARCHIVED PATIENT RECORDS       |\n" +
+                "+=====================================+"
+            );
             
             List<Patient> patients = patientService.getArchivedPatients();
             if (patients.isEmpty()) {
@@ -302,9 +316,11 @@ public class PatientView {
     public void searchArchivedPatient() {
         try {
             MenuUtil.clearScreen();
-            System.out.println("+=====================================+");
-            System.out.println("|    SEARCH ARCHIVED PATIENT RECORD   |");
-            System.out.println("+=====================================+");
+            System.out.println(
+                "+=====================================+\n" +
+                "|    SEARCH ARCHIVED PATIENT RECORD   |\n" +
+                "+=====================================+"
+            );
             
             int id = InputValidator.getIntInput("\nEnter Archived Patient ID: ", 1, Integer.MAX_VALUE);
             Patient patient = patientService.getArchivedPatientById(id);
