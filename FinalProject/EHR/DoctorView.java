@@ -16,14 +16,16 @@ public class DoctorView {
         while (!back) {
             try {
                 MenuUtil.clearScreen();
-                System.out.println("+=====================================+");
-                System.out.println("|         DOCTOR MANAGEMENT           |");
-                System.out.println("+=====================================+");
-                System.out.println("|  [1] View All Doctors               |");
-                System.out.println("|  [2] Add New Doctor                 |");
-                System.out.println("|  [3] Archived Records               |");
-                System.out.println("|  [4] Back To Main Menu              |");
-                System.out.println("+=====================================+");
+                System.out.println(
+                    "+=====================================+\n" +
+                    "|         DOCTOR MANAGEMENT           |\n" +
+                    "+=====================================+\n" +
+                    "|  [1] View All Doctors               |\n" +
+                    "|  [2] Add New Doctor                 |\n" +
+                    "|  [3] Archived Records               |\n" +
+                    "|  [4] Back To Main Menu              |\n" +
+                    "+=====================================+"
+                );
                 int choice = InputValidator.getIntInput("Enter choice: ", 1, 4);
                 switch (choice) {
                     case 1: 
@@ -51,9 +53,11 @@ public class DoctorView {
     private void viewDoctors() {
         try {
             MenuUtil.clearScreen();
-            System.out.println("+=====================================+");
-            System.out.println("|         LIST OF ALL DOCTORS         |");
-            System.out.println("+=====================================+");
+            System.out.println(
+                "+=====================================+\n" +
+                "|         LIST OF ALL DOCTORS         |\n" +
+                "+=====================================+"
+            );
             
             List<Doctor> doctors = doctorService.getAllDoctors();
             if (doctors.isEmpty()) {
@@ -78,9 +82,11 @@ public class DoctorView {
     private void addDoctor() {
         try {
             MenuUtil.clearScreen();
-            System.out.println("+=====================================+");
-            System.out.println("|           ADD NEW DOCTOR            |");
-            System.out.println("+=====================================+");
+            System.out.println(
+                "+=====================================+\n" +
+                "|           ADD NEW DOCTOR            |\n" +
+                "+=====================================+"
+            );
             
             String name = InputValidator.getStringInput("Doctor Name: ");
             String specialization = InputValidator.getStringInput("Specialization: ");
@@ -100,13 +106,15 @@ public class DoctorView {
         while (!back) {
             try {
                 MenuUtil.clearScreen();
-                System.out.println("+=====================================+");
-                System.out.println("|       ARCHIVED RECORDS MENU         |");
-                System.out.println("+=====================================+");
-                System.out.println("|  [1] View All Archived Records      |");
-                System.out.println("|  [2] Search Archived Record         |");
-                System.out.println("|  [3] Back To Doctor Menu            |");
-                System.out.println("+=====================================+");
+                System.out.println(
+                    "+=====================================+\n" +
+                    "|       ARCHIVED RECORDS MENU         |\n" +
+                    "+=====================================+\n" +
+                    "|  [1] View All Archived Records      |\n" +
+                    "|  [2] Search Archived Record         |\n" +
+                    "|  [3] Back To Doctor Menu            |\n" +
+                    "+=====================================+"
+                );
                 
                 System.out.println(ConsoleColors.YELLOW + "\nPrivacy Notice:");
                 System.out.println("All archived information is protected under confidentiality policies." + ConsoleColors.RESET);
