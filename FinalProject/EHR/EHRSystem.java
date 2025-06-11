@@ -8,6 +8,9 @@ public class EHRSystem {
 
     public static void start() {
         try {
+            // Display intro
+            displayIntro();
+            
             // Initialize services
             DoctorService doctorService = new DoctorService();
             PatientService patientService = new PatientService(doctorService);
@@ -53,6 +56,26 @@ public class EHRSystem {
         } catch (Exception e) {
             System.out.println(ConsoleColors.RED + "A critical error occurred: " + e.getMessage() + ConsoleColors.RESET);
             System.out.println("Please contact system administrator.");
+        }
+    }
+
+    private static void displayIntro() {
+        System.out.println(ConsoleColors.CYAN);
+        System.out.println(
+             " ______   _    _   _____ \n" +
+             "|  ____| | |  | | |  __ \\\n" +
+             "| |__    | |__| | | |__) |\n" +
+             "|  __|   |  __  | |  _  / \n" +
+             "| |____  | |  | | | | \\ \\ \n" +
+             "|______| |_|  |_| |_|  \\_\\\n"
+        );
+        System.out.println(ConsoleColors.RESET);
+        System.out.print("Please wait to continue...");
+        
+        try {
+            Thread.sleep(3000); 
+            MenuUtil.clearScreen();
+        } catch (InterruptedException e) {
         }
     }
 }

@@ -31,7 +31,7 @@ public class InputValidator {
             String input = scanner.nextLine().trim().toLowerCase();
             if (input.equals("yes") || input.equals("y")) return true;
             if (input.equals("no") || input.equals("n")) return false;
-            System.out.println(ConsoleColors.RED + "Please enter 'yes' or 'no'" + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.RED + "Please enter 'yes' or 'no' only!" + ConsoleColors.RESET);
         }
     }
 
