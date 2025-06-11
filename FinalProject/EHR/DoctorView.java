@@ -26,7 +26,7 @@ public void displayMenu() {
                 "|  [4] Back To Main Menu              |\n" +
                 "+=====================================+"
             );
-            int choice = InputValidator.getIntInput("Enter choice: ", 1, 5);
+            int choice = InputValidator.getIntInput("Enter your choice: ", 1, 5);
             switch (choice) {
                 case 1: 
                     viewDoctors();
@@ -115,17 +115,8 @@ private void displayArchiveMenu() {
                 "|  [3] Back To Doctor Menu            |\n" +
                 "+=====================================+"
             );
-            
-            System.out.println(ConsoleColors.YELLOW + "\nPrivacy Notice:");
-            System.out.println("All archived information is protected under confidentiality policies." + ConsoleColors.RESET);
-            
-            if (!InputValidator.getYesNoInput("\nDo you understand? (yes/no): ")) {
-                System.out.println(ConsoleColors.RED + "\nCannot proceed without confirmation." + ConsoleColors.RESET);
-                InputValidator.pressEnterToContinue();
-                return;
-            }
 
-            int choice = InputValidator.getIntInput("\nEnter choice: ", 1, 3);
+            int choice = InputValidator.getIntInput("Enter your choice: ", 1, 3);
             switch (choice) {
                 case 1: 
                     patientView.viewArchivedPatients();

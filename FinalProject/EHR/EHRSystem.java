@@ -8,21 +8,16 @@ public class EHRSystem {
 
     public static void start() {
         try {
-            // Display intro
             displayIntro();
             
-            // Initialize services
             DoctorService doctorService = new DoctorService();
             PatientService patientService = new PatientService(doctorService);
             
-            // Initialize views
             PatientView patientView = new PatientView(patientService, doctorService);
             DoctorView doctorView = new DoctorView(doctorService, patientView);
-            
-            // Display welcome message
+                
             MenuUtil.displayWelcomeMessage();
             
-            // Main program loop
             boolean running = true;
             while (running) {
                 try {
@@ -51,8 +46,8 @@ public class EHRSystem {
                 }
             }
             
-            System.out.println(ConsoleColors.BLUE_BOLD + "\nThank you for using the Electronic Health Records System!" + ConsoleColors.RESET);
-            System.out.println("System shutdown successfully.");
+            System.out.println(ConsoleColors.BLUE + "\nThank you for using the Electronic Health Records System!" + ConsoleColors.RESET);
+            System.out.print("System shutdown successfully.");
         } catch (Exception e) {
             System.out.println(ConsoleColors.RED + "A critical error occurred: " + e.getMessage() + ConsoleColors.RESET);
             System.out.println("Please contact system administrator.");
@@ -60,22 +55,27 @@ public class EHRSystem {
     }
 
     private static void displayIntro() {
-        System.out.println(ConsoleColors.CYAN);
-        System.out.println(
-             " ______   _    _   _____ \n" +
-             "|  ____| | |  | | |  __ \\\n" +
-             "| |__    | |__| | | |__) |\n" +
-             "|  __|   |  __  | |  _  / \n" +
-             "| |____  | |  | | | | \\ \\ \n" +
-             "|______| |_|  |_| |_|  \\_\\\n"
-        );
-        System.out.println(ConsoleColors.RESET);
-        System.out.print("Please wait to continue...");
-        
-        try {
-            Thread.sleep(3000); 
-            MenuUtil.clearScreen();
-        } catch (InterruptedException e) {
+    System.out.println(
+         " ______   _    _   _____  \n" +
+         "|  ____| | |  | | |  __ \\\n" +
+         "| |__    | |__| | | |__) |\n" +
+         "|  __|   |  __  | |  _  / \n" +
+         "| |____  | |  | | | | \\ \\ \n" +
+         "|______| |_|  |_| |_|  \\_\\\n"
+    );
+    System.out.print(ConsoleColors.YELLOW + "Please wait to continue");
+    
+    try {
+        for (int i = 0; i < 3; i++) {
+            Thread.sleep(900); // 0.9 second delay between dots
+            System.out.print(".");
+            System.out.flush(); // Ensure the dot is displayed
         }
-    }
+        System.out.print(ConsoleColors.RESET);
+        Thread.sleep(1000); 
+        MenuUtil.clearScreen();
+    } catch (InterruptedException e) {
+        System.out.print(e);
+      }
+   }
 }

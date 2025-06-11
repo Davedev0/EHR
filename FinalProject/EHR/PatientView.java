@@ -28,7 +28,7 @@ public class PatientView {
                     "|  [6] Back To Main Menu                  |\n" +
                     "+=========================================+"
                 );
-                int choice = InputValidator.getIntInput("Enter choice: ", 1, 6);
+                int choice = InputValidator.getIntInput("Enter your choice: ", 1, 6);
                 switch (choice) {
                     case 1: 
                         viewPatients();
@@ -298,7 +298,7 @@ public class PatientView {
             
             List<Patient> patients = patientService.getArchivedPatients();
             if (patients.isEmpty()) {
-                System.out.println(ConsoleColors.YELLOW + "\nNo archived records found." + ConsoleColors.RESET);
+                System.out.println(ConsoleColors.RED + "\nNo archived records found." + ConsoleColors.RESET);
             } else {
                 System.out.println("\nArchived Patients:");
                 for (Patient p : patients) {
