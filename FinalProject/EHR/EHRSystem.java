@@ -61,7 +61,8 @@ public class EHRSystem {
          "| |__    | |__| | | |__) |\n" +
          "|  __|   |  __  | |  _  / \n" +
          "| |____  | |  | | | | \\ \\ \n" +
-         "|______| |_|  |_| |_|  \\_\\\n"
+         "|______| |_|  |_| |_|  \\_\\\n" 
+          
     );
     System.out.print(ConsoleColors.YELLOW + "Please wait to continue");
     
