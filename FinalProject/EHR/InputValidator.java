@@ -24,6 +24,21 @@ public class InputValidator {
             }
         }
     }
+    
+    public static long getLongInput(String prompt, long min, long max) {
+        while (true) {
+            try {
+                System.out.print(prompt);
+                long value = Long.parseLong(scanner.nextLine());
+                if (value >= min && value <= max) {
+                    return value;
+                }
+                System.out.println(ConsoleColors.RED + "Please enter between " + min + "-" + max + ConsoleColors.RESET);
+            } catch (NumberFormatException e) {
+                System.out.println(ConsoleColors.RED + "Invalid number" + ConsoleColors.RESET);
+            }
+        }
+    }
 
     public static boolean getYesNoInput(String prompt) {
         while (true) {
@@ -36,7 +51,17 @@ public class InputValidator {
     }
 
     public static void pressEnterToContinue() {
-        System.out.print(ConsoleColors.YELLOW + "\nPress Enter to continue..." + ConsoleColors.RESET);
+        System.out.print(ConsoleColors.YELLOW + "\nPress Enter to Continue..." + ConsoleColors.RESET);
         scanner.nextLine();
     }
+    
+    public static String getRequiredStringInput(String prompt) {
+    while (true) {
+        String input = getStringInput(prompt);
+        if (!input.trim().isEmpty()) {
+            return input;
+        }
+        System.out.println(ConsoleColors.RED + "This Field is Required!" + ConsoleColors.RESET);
+    }
+}
 }

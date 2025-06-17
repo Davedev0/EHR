@@ -6,9 +6,9 @@ public class Patient {
     private int age;          
     private String dob;
     private String gender;
-    private String contact;
+    private long contact;
     private String address;
-    private String emergencyContact;
+    private long emergencyContact;
     private String allergies;
     private String currentMeds;
     private String medicalHistory;
@@ -16,8 +16,8 @@ public class Patient {
     private String treatmentPlan;
     private int doctorId;
 
-    public Patient(int id, String name, int age, String dob, String gender, String contact, 
-                  String address, String emergencyContact, String allergies, 
+    public Patient(int id, String name, int age, String dob, String gender,long contact, 
+                  String address, long emergencyContact, String allergies, 
                   String currentMeds, String medicalHistory, String diagnosis, 
                   String treatmentPlan, int doctorId) {
         this.id = id;
@@ -42,9 +42,9 @@ public class Patient {
     public int getAge() { return age; }
     public String getDob() { return dob; }
     public String getGender() { return gender; }
-    public String getContact() { return contact; }
+    public long getContact() { return contact; }
     public String getAddress() { return address; }
-    public String getEmergencyContact() { return emergencyContact; }
+    public long getEmergencyContact() { return emergencyContact; }
     public String getAllergies() { return allergies; }
     public String getCurrentMeds() { return currentMeds; }
     public String getMedicalHistory() { return medicalHistory; }
@@ -54,19 +54,19 @@ public class Patient {
 
     @Override
     public String toString() {
-        return ConsoleColors.CYAN + "ID: " + id + ConsoleColors.RESET + "\n" +
-               "Name: " + name + "\n" +
-               "Age: " + age + "\n" +
-               "DOB: " + dob + "\n" +
-               "Gender: " + gender + "\n" +
-               "Contact: " + contact + "\n" +
-               "Address: " + address + "\n" +
-               "Emergency Contact: " + emergencyContact + "\n" +
-               "Allergies: " + allergies + "\n" +
-               "Current Meds: " + currentMeds + "\n" +
-               "Medical History: " + medicalHistory + "\n" +
-               "Diagnosis: " + diagnosis + "\n" +
-               "Treatment: " + treatmentPlan + "\n" +
-               "Doctor ID: " + doctorId;
-    }
+    return ConsoleColors.PURPLE + "ID: " + id + ConsoleColors.RESET + "\n" +
+           ConsoleColors.CYAN + "Name: " + ConsoleColors.RESET + name + "\n" +
+           ConsoleColors.CYAN + "Age: " + ConsoleColors.RESET + age + "\n" +
+           ConsoleColors.CYAN + "DOB: " + ConsoleColors.RESET + dob + "\n" +
+           ConsoleColors.CYAN + "Gender: " + ConsoleColors.RESET + gender + "\n" +
+           ConsoleColors.CYAN + "Contact: " + ConsoleColors.RESET + contact + "\n" +
+           ConsoleColors.CYAN + "Address: " + ConsoleColors.RESET + address + "\n" +
+           ConsoleColors.CYAN + "Emergency Contact: " + ConsoleColors.RESET + emergencyContact + "\n" +
+           ConsoleColors.CYAN + "Allergies: " + ConsoleColors.RESET + allergies + "\n" +
+           ConsoleColors.CYAN + "Current Meds: " + ConsoleColors.RESET + currentMeds + "\n" +
+           ConsoleColors.CYAN + "Medical History: " + ConsoleColors.RESET + medicalHistory + "\n" +
+           ConsoleColors.CYAN + "Diagnosis: " + ConsoleColors.RESET + diagnosis + "\n" +
+           ConsoleColors.CYAN + "Treatment: " + ConsoleColors.RESET + treatmentPlan + "\n" +
+           ConsoleColors.CYAN + "Doctor ID: " + ConsoleColors.RESET + doctorId;
+}
 }
