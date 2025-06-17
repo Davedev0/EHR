@@ -67,6 +67,6 @@ public class Patient {
            ConsoleColors.CYAN + "Medical History: " + ConsoleColors.RESET + medicalHistory + "\n" +
            ConsoleColors.CYAN + "Diagnosis: " + ConsoleColors.RESET + diagnosis + "\n" +
            ConsoleColors.CYAN + "Treatment: " + ConsoleColors.RESET + treatmentPlan + "\n" +
-           ConsoleColors.CYAN + "Doctor ID: " + ConsoleColors.RESET + doctorId;
+           ConsoleColors.CYAN + "Doctor Id: " + ConsoleColors.RESET + doctorId;
 }
 }

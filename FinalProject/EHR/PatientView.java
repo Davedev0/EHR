@@ -237,12 +237,6 @@ public class PatientView {
             } else {
                 System.out.println("\nPatient Record:");
                 System.out.println(patient);
-                
-                Doctor doctor = doctorService.getDoctorById(patient.getDoctorId());
-                if (doctor != null) {
-                    System.out.println("\nAssigned Doctor:");
-                    System.out.println(doctor);
-                }
             }
         } catch (Exception e) {
             System.out.println(ConsoleColors.RED + "Error searching patient: " + e.getMessage() + ConsoleColors.RESET);
@@ -278,8 +272,10 @@ public class PatientView {
             }
             
             System.out.println("\nPatient to archive:");
-            System.out.println(ConsoleColors.CYAN + "ID: " + patient.getId() + ConsoleColors.RESET);
-            System.out.println("Name: " + patient.getName());
+            System.out.println(
+            ConsoleColors.PURPLE + "ID: " + patient.getId() + ConsoleColors.RESET + " | " +
+            ConsoleColors.CYAN + "Name: " + ConsoleColors.RESET + patient.getName() 
+            );
             
             boolean confirm = InputValidator.getYesNoInput(ConsoleColors.RED + 
                 "\nConfirm archiving this record? (yes/no): " + ConsoleColors.RESET);
@@ -314,8 +310,9 @@ public class PatientView {
             } else {
                 System.out.println("\nArchived Patients:");
                 for (Patient p : patients) {
-                    System.out.println(ConsoleColors.PURPLE + "ID: " + p.getId() + ConsoleColors.RESET + 
-                                    " | " + p.getName() + " (Archived)");
+                    System.out.println(
+                    ConsoleColors.PURPLE + "ID: " + p.getId() + ConsoleColors.RESET + " | " +  
+                    ConsoleColors.CYAN + "Name: " + ConsoleColors.RESET + p.getName());
                 }
             }
         } catch (Exception e) {
