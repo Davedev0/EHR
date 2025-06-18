@@ -1,4 +1,5 @@
-package FinalProject; 
+// Main file to run the program.
+package FinalProject;
 
 import FinalProject.EHR.EHRSystem;
 
