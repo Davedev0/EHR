@@ -47,7 +47,7 @@ public class EHRSystem {
             }
             
             System.out.println(ConsoleColors.BLUE + "\nThank you for using the Electronic Health Records System!" + ConsoleColors.RESET);
-            System.out.print("System shutdown successfully.");
+            System.out.print(ConsoleColors.YELLOW + "System shutdown successfully." + ConsoleColors.RESET);
         } catch (Exception e) {
             System.out.println(ConsoleColors.RED + "A critical error occurred: " + e.getMessage() + ConsoleColors.RESET);
             System.out.println("Please contact system administrator.");

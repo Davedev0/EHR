@@ -54,7 +54,7 @@ public class Patient {
 
     @Override
     public String toString() {
-    return ConsoleColors.PURPLE + "ID: " + id + ConsoleColors.RESET + "\n" +
+    return ConsoleColors.PURPLE + "ID: " + ConsoleColors.RESET + id + "\n" +
            ConsoleColors.CYAN + "Name: " + ConsoleColors.RESET + name + "\n" +
            ConsoleColors.CYAN + "Age: " + ConsoleColors.RESET + age + "\n" +
            ConsoleColors.CYAN + "DOB: " + ConsoleColors.RESET + dob + "\n" +

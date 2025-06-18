@@ -17,7 +17,7 @@ public class Doctor {
 
     @Override
     public String toString() {
-        return ConsoleColors.PURPLE + "ID: " + id + ConsoleColors.RESET + " | " +
+        return ConsoleColors.PURPLE + "ID: " + ConsoleColors.RESET + id + " | " +
                ConsoleColors.CYAN + "Name: " + ConsoleColors.RESET + name;
        }
   }

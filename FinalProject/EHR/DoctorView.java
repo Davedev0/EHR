@@ -65,7 +65,7 @@ public class DoctorView {
             } else {
                 for (Doctor doctor : doctors) {
                     System.out.println(
-                        ConsoleColors.PURPLE + "ID: " + doctor.getId() + ConsoleColors.RESET + " | " +
+                        ConsoleColors.PURPLE + "ID: " + ConsoleColors.RESET + doctor.getId() + " | " +
                         ConsoleColors.CYAN + "Name: " + ConsoleColors.RESET+ doctor.getName() + " | " +
                         ConsoleColors.CYAN + "Specialization: " + ConsoleColors.RESET + doctor.getSpecialization()
                     );

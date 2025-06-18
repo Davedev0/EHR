@@ -76,7 +76,7 @@ public class PatientView {
                     String doctorName = (doctor != null) ? doctor.getName() : "No doctor assigned";
                     
                     System.out.println(
-                        ConsoleColors.PURPLE + "ID: " + p.getId() + ConsoleColors.RESET + "\n" +
+                        ConsoleColors.PURPLE + "ID: " + ConsoleColors.RESET + p.getId() + "\n" +
                         ConsoleColors.CYAN + "Name: " + ConsoleColors.RESET + p.getName() + "\n" +
                         ConsoleColors.CYAN + "Age: " + ConsoleColors.RESET + p.getAge() + "\n" +
                         ConsoleColors.CYAN + "Birthday: " + ConsoleColors.RESET + p.getDob() + "\n" +
@@ -111,7 +111,7 @@ public class PatientView {
             );
             
             int id = patientService.getNextId();
-            System.out.println("Patient ID: " + ConsoleColors.PURPLE + id + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.PURPLE + "Patient ID: " + ConsoleColors.RESET + id);
             
             String name = InputValidator.getRequiredStringInput("Full Name: ");
             int age = InputValidator.getIntInput("Age: ", 0, 100);
@@ -137,18 +137,21 @@ public class PatientView {
             for (Doctor doctor : doctors) {
                 System.out.println(doctor);
             }
-            
-            int doctorId = InputValidator.getIntInput("Assign Doctor ID: ", 1, Integer.MAX_VALUE);
-            if (doctorService.getDoctorById(doctorId) == null) {
-                System.out.println(ConsoleColors.RED + "Invalid Doctor ID!" + ConsoleColors.RESET);
-                InputValidator.pressEnterToContinue();
-                return;
+                int doctorId;
+                Doctor assignedDoctor;
+        do {
+            doctorId = InputValidator.getIntInput("Assign Doctor ID: ", 1, Integer.MAX_VALUE);
+            assignedDoctor = doctorService.getDoctorById(doctorId);
+            if (assignedDoctor == null) {
+                System.out.println(ConsoleColors.RED + "Invalid Doctor ID! Please try Again." + ConsoleColors.RESET);
             }
+        } while (assignedDoctor == null);
             
             Patient patient = new Patient(id, name, age, dob, gender, contact, address, 
                                         emergency, allergies, meds, history, 
                                         diagnosis, treatment, doctorId);
             patientService.addPatient(patient);
+            System.out.println();
             System.out.println(ConsoleColors.GREEN + "Patient added successfully!" + ConsoleColors.RESET);
         } catch (Exception e) {
             System.out.println(ConsoleColors.RED + "Error adding patient: " + e.getMessage() + ConsoleColors.RESET);
@@ -156,7 +159,6 @@ public class PatientView {
             InputValidator.pressEnterToContinue();
         }
     }
-
     private void updatePatient() {
         try {
             MenuUtil.clearScreen();
@@ -273,8 +275,9 @@ public class PatientView {
             
             System.out.println("\nPatient to archive:");
             System.out.println(
-            ConsoleColors.PURPLE + "ID: " + patient.getId() + ConsoleColors.RESET + " | " +
-            ConsoleColors.CYAN + "Name: " + ConsoleColors.RESET + patient.getName() 
+            ConsoleColors.PURPLE + "ID: " + ConsoleColors.RESET + patient.getId() + " | " +
+            ConsoleColors.CYAN + "Name: " + ConsoleColors.RESET + patient.getName() + " | " +
+            ConsoleColors.CYAN + "Gender: " + ConsoleColors.RESET + patient.getGender()
             );
             
             boolean confirm = InputValidator.getYesNoInput(ConsoleColors.RED + 
@@ -311,8 +314,10 @@ public class PatientView {
                 System.out.println("\nArchived Patients:");
                 for (Patient p : patients) {
                     System.out.println(
-                    ConsoleColors.PURPLE + "ID: " + p.getId() + ConsoleColors.RESET + " | " +  
-                    ConsoleColors.CYAN + "Name: " + ConsoleColors.RESET + p.getName());
+                    ConsoleColors.PURPLE + "ID: " + ConsoleColors.RESET + p.getId() + " | " +  
+                    ConsoleColors.CYAN + "Name: " + ConsoleColors.RESET + p.getName() + " | " +
+                    ConsoleColors.CYAN + "Gender: " + ConsoleColors.RESET + p.getGender()
+                    );
                 }
             }
         } catch (Exception e) {
