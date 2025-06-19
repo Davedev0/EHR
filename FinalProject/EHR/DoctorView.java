@@ -66,7 +66,7 @@ public class DoctorView {
                 for (Doctor doctor : doctors) {
                     System.out.println(
                         ConsoleColors.PURPLE + "ID: " + ConsoleColors.RESET + doctor.getId() + " | " +
-                        ConsoleColors.CYAN + "Name: " + ConsoleColors.RESET+ doctor.getName() + " | " +
+                        ConsoleColors.CYAN + "Name: " + ConsoleColors.RESET + "Dr. " + doctor.getName() + " | " +
                         ConsoleColors.CYAN + "Specialization: " + ConsoleColors.RESET + doctor.getSpecialization()
                     );
                 }
@@ -87,8 +87,8 @@ public class DoctorView {
                 "+=====================================+"
             );
             
-            String name = InputValidator.getRequiredStringInput("Doctor Name: ");
-            String specialization = InputValidator.getRequiredStringInput("Specialization: ");
+            String name = InputValidator.getValidLetterInput("Doctor Name: ");
+            String specialization = InputValidator.getValidLetterInput("Specialization: ");
             
             int newId = doctorService.getNextId();
             doctorService.addDoctor(new Doctor(newId, name, specialization));

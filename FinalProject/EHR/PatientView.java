@@ -113,18 +113,18 @@ public class PatientView {
             int id = patientService.getNextId();
             System.out.println(ConsoleColors.PURPLE + "Patient ID: " + ConsoleColors.RESET + id);
             
-            String name = InputValidator.getRequiredStringInput("Full Name: ");
+            String name = InputValidator.getValidLetterInput("Full Name: ");
             int age = InputValidator.getIntInput("Age: ", 0, 100);
             String dob = InputValidator.getRequiredStringInput("Date of Birth: ");
-            String gender = InputValidator.getRequiredStringInput("Gender: ");
+            String gender = InputValidator.getValidGenderInput("Gender: ");
             long contact = InputValidator.getLongInput("Contact: ",1000000000L, 99999999999L);
             String address = InputValidator.getRequiredStringInput("Address: ");
             long emergency = InputValidator.getLongInput("Emergency Contact: ", 1000000000L, 99999999999L);
-            String allergies = InputValidator.getStringInput("Allergies: ");
-            String meds = InputValidator.getStringInput("Current Medications: ");
-            String history = InputValidator.getStringInput("Medical History: ");
-            String diagnosis = InputValidator.getRequiredStringInput("Diagnosis: ");
-            String treatment = InputValidator.getRequiredStringInput("Treatment Plan: ");
+            String allergies = InputValidator.getValidLetterInput("Allergies: ");
+            String meds = InputValidator.getValidLetterInput("Current Medications: ");
+            String history = InputValidator.getValidLetterInput("Medical History: ");
+            String diagnosis = InputValidator.getValidLetterInput("Diagnosis: ");
+            String treatment = InputValidator.getValidLetterInput("Treatment Plan: ");
             
             System.out.println("\nAvailable Doctors:");
             List<Doctor> doctors = doctorService.getAllDoctors();

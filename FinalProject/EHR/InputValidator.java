@@ -20,7 +20,7 @@ public class InputValidator {
                 }
                 System.out.println(ConsoleColors.RED + "Please enter between " + min + "-" + max + ConsoleColors.RESET);
             } catch (NumberFormatException e) {
-                System.out.println(ConsoleColors.RED + "Invalid number" + ConsoleColors.RESET);
+                System.out.println(ConsoleColors.RED + "Invalid number! Please try again." + ConsoleColors.RESET);
             }
         }
     }
@@ -35,7 +35,7 @@ public class InputValidator {
                 }
                 System.out.println(ConsoleColors.RED + "Please enter between " + min + "-" + max + ConsoleColors.RESET);
             } catch (NumberFormatException e) {
-                System.out.println(ConsoleColors.RED + "Invalid number" + ConsoleColors.RESET);
+                System.out.println(ConsoleColors.RED + "Invalid number! Please try again." + ConsoleColors.RESET);
             }
         }
     }
@@ -62,6 +62,31 @@ public class InputValidator {
             return input;
         }
         System.out.println(ConsoleColors.RED + "This Field is Required!" + ConsoleColors.RESET);
+      }
+   }
+    
+    //regex
+    public static String getValidLetterInput(String prompt) {
+        while (true) {
+            String input = getRequiredStringInput(prompt);
+            if (input.matches("^[a-zA-Z\\s,.']+$")) {
+                return input;
+            }
+            System.out.println(ConsoleColors.RED + "Invalid input! It should contain only letters." + ConsoleColors.RESET);
+        }
     }
-}
+    
+   public static String getValidGenderInput(String prompt) {
+      while (true) {
+        String input = getRequiredStringInput(prompt).trim().toLowerCase();
+        if (input.equals("male") || input.equals("m") || 
+            input.equals("female") || input.equals("f")) {
+            // Return properly capitalized version
+            if (input.equals("m")) return "Male";
+            if (input.equals("f")) return "Female";
+            return input.substring(0, 1).toUpperCase() + input.substring(1);
+        }
+        System.out.println(ConsoleColors.RED + "Invalid input! Please enter Male/Female only." + ConsoleColors.RESET);
+       }
+    }
 }

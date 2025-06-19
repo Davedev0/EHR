@@ -2,10 +2,6 @@ package FinalProject.EHR;
 
 public class EHRSystem {
 
-    public static void main(String[] args) {
-        start();
-    }
-
     public static void start() {
         try {
             displayIntro();
