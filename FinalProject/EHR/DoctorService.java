@@ -12,9 +12,11 @@ public class DoctorService {
     }
 
     private void initializeDoctors() {
-        addDoctor(new Doctor(nextId++, "Anggit Kopal", "Cardiology"));
-        addDoctor(new Doctor(nextId++, "Mark Rentoria", "Neurology"));
-        addDoctor(new Doctor(nextId++, "John Quidan", "Pediatrics"));
+        addDoctor(new Doctor(nextId++, "John Smith", "Cardiology"));
+        addDoctor(new Doctor(nextId++, "Emily Chen", "Neurology"));
+        addDoctor(new Doctor(nextId++, "William Brown", "Pediatrics"));
+        addDoctor(new Doctor(nextId++, "Robert Davis", "Dermatologist"));
+        addDoctor(new Doctor(nextId++, "Jennifer Hall", "Physician"));
     }
 
     public void addDoctor(Doctor doctor) {

@@ -46,7 +46,7 @@ public class InputValidator {
             String input = scanner.nextLine().trim().toLowerCase();
             if (input.equals("yes") || input.equals("y")) return true;
             if (input.equals("no") || input.equals("n")) return false;
-            System.out.println(ConsoleColors.RED + "Please enter 'yes' or 'no' only!" + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.RED + "\nPlease enter 'yes' or 'no' only!" + ConsoleColors.RESET);
         }
     }
 
@@ -89,4 +89,28 @@ public class InputValidator {
         System.out.println(ConsoleColors.RED + "Invalid input! Please enter Male/Female only." + ConsoleColors.RESET);
        }
     }
+
+  public static String getValidDateInput(String prompt) {
+    while (true) {
+        String input = getRequiredStringInput(prompt);
+        // Simple date format validation (can be enhanced)
+        if (input.matches("^[a-zA-Z]+\\s\\d{1,2},\\s\\d{4}$")) {
+            return input;
+        }
+        System.out.println(ConsoleColors.RED + "Invalid date format! Please use format like 'December 25, 2006'" + ConsoleColors.RESET);
+    }
+ }
+    
+    // Source from github to calculate the age!
+    public static int calculateAgeFromDOB(String dob) {
+      try {
+        // Extract year from DOB (simple approach for this format)
+        int birthYear = Integer.parseInt(dob.split(",")[1].trim());
+        int currentYear = java.time.Year.now().getValue();
+        return currentYear - birthYear;
+    } catch (Exception e) {
+        System.out.println(ConsoleColors.RED + "Error calculating age from DOB. Using default age 0." + ConsoleColors.RESET);
+        return 0;
+    }
+}
 }
