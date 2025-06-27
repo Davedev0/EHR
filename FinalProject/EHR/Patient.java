@@ -16,7 +16,7 @@ public class Patient {
     private String treatmentPlan;
     private int doctorId;
 
-    public Patient(int id, String name, int age, String dob, String gender,long contact, 
+    public Patient(int id, String name, int age, String dob, String gender, long contact, 
                   String address, long emergencyContact, String allergies, 
                   String currentMeds, String medicalHistory, String diagnosis, 
                   String treatmentPlan, int doctorId) {
@@ -54,19 +54,19 @@ public class Patient {
 
     @Override
     public String toString() {
-    return ConsoleColors.PURPLE + "ID: " + ConsoleColors.RESET + id + "\n" +
-           ConsoleColors.CYAN + "Name: " + ConsoleColors.RESET + name + "\n" +
-           ConsoleColors.CYAN + "Age: " + ConsoleColors.RESET + age + "\n" +
-           ConsoleColors.CYAN + "DOB: " + ConsoleColors.RESET + dob + "\n" +
-           ConsoleColors.CYAN + "Gender: " + ConsoleColors.RESET + gender + "\n" +
-           ConsoleColors.CYAN + "Contact: " + ConsoleColors.RESET + contact + "\n" +
-           ConsoleColors.CYAN + "Address: " + ConsoleColors.RESET + address + "\n" +
-           ConsoleColors.CYAN + "Emergency Contact: " + ConsoleColors.RESET + emergencyContact + "\n" +
-           ConsoleColors.CYAN + "Allergies: " + ConsoleColors.RESET + allergies + "\n" +
-           ConsoleColors.CYAN + "Current Meds: " + ConsoleColors.RESET + currentMeds + "\n" +
-           ConsoleColors.CYAN + "Medical History: " + ConsoleColors.RESET + medicalHistory + "\n" +
-           ConsoleColors.CYAN + "Diagnosis: " + ConsoleColors.RESET + diagnosis + "\n" +
-           ConsoleColors.CYAN + "Treatment: " + ConsoleColors.RESET + treatmentPlan + "\n" +
-           ConsoleColors.CYAN + "Doctor Id: " + ConsoleColors.RESET + doctorId;
-}
+        return ConsoleColors.PURPLE + "ID: " + ConsoleColors.RESET + id + "\n" +
+               ConsoleColors.CYAN + "Name: " + ConsoleColors.RESET + name + "\n" +
+               ConsoleColors.CYAN + "Age: " + ConsoleColors.RESET + age + "\n" +
+               ConsoleColors.CYAN + "Date of Birth: " + ConsoleColors.RESET + dob + "\n" +
+               ConsoleColors.CYAN + "Gender: " + ConsoleColors.RESET + gender + "\n" +
+               ConsoleColors.CYAN + "Contact Number: " + ConsoleColors.RESET + contact + "\n" +
+               ConsoleColors.CYAN + "Address: " + ConsoleColors.RESET + address + "\n" +
+               ConsoleColors.CYAN + "Emergency Contact: " + ConsoleColors.RESET + emergencyContact + "\n" +
+               ConsoleColors.CYAN + "Allergies: " + ConsoleColors.RESET + allergies + "\n" +
+               ConsoleColors.CYAN + "Current Meds: " + ConsoleColors.RESET + currentMeds + "\n" +
+               ConsoleColors.CYAN + "Medical History: " + ConsoleColors.RESET + medicalHistory + "\n" +
+               ConsoleColors.CYAN + "Diagnosis: " + ConsoleColors.RESET + diagnosis + "\n" +
+               ConsoleColors.CYAN + "Treatment: " + ConsoleColors.RESET + treatmentPlan + "\n" +
+               ConsoleColors.CYAN + "Doctor Id: " + ConsoleColors.RESET + doctorId;
+    }
 }

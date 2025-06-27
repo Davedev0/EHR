@@ -112,11 +112,12 @@ public class DoctorView {
                     "+=====================================+\n" +
                     "|  [1] View All Archived Records      |\n" +
                     "|  [2] Search Archived Record         |\n" +
-                    "|  [3] Back To Doctor Menu            |\n" +
+                    "|  [3] Unarchive Patient Record       |\n" +
+                    "|  [4] Back To Doctor Menu            |\n" +
                     "+=====================================+"
                 );
 
-                int choice = InputValidator.getIntInput("Enter your choice: ", 1, 3);
+                int choice = InputValidator.getIntInput("Enter your choice: ", 1, 4);
                 switch (choice) {
                     case 1: 
                         patientView.viewArchivedPatients();
@@ -125,6 +126,9 @@ public class DoctorView {
                         patientView.searchArchivedPatient();
                         break;
                     case 3: 
+                        patientView.unarchivePatientRecords();
+                        break;
+                    case 4: 
                         back = true;
                         break;
                 }

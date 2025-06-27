@@ -56,16 +56,15 @@ public class InputValidator {
     }
     
     public static String getRequiredStringInput(String prompt) {
-    while (true) {
-        String input = getStringInput(prompt);
-        if (!input.trim().isEmpty()) {
-            return input;
+        while (true) {
+            String input = getStringInput(prompt);
+            if (!input.trim().isEmpty()) {
+                return input;
+            }
+            System.out.println(ConsoleColors.RED + "This Field is Required!" + ConsoleColors.RESET);
         }
-        System.out.println(ConsoleColors.RED + "This Field is Required!" + ConsoleColors.RESET);
-      }
-   }
+    }
     
-    //regex
     public static String getValidLetterInput(String prompt) {
         while (true) {
             String input = getRequiredStringInput(prompt);
@@ -76,41 +75,70 @@ public class InputValidator {
         }
     }
     
-   public static String getValidGenderInput(String prompt) {
-      while (true) {
-        String input = getRequiredStringInput(prompt).trim().toLowerCase();
-        if (input.equals("male") || input.equals("m") || 
-            input.equals("female") || input.equals("f")) {
-            // Return properly capitalized version
-            if (input.equals("m")) return "Male";
-            if (input.equals("f")) return "Female";
-            return input.substring(0, 1).toUpperCase() + input.substring(1);
+    public static String getUpdateLetterInput(String prompt) {
+        while (true) {
+            String input = getStringInput(prompt);
+            if (input.isEmpty()) {
+                return input;
+            }
+            if (input.matches("^[a-zA-Z\\s,.']+$")) {
+                return input;
+            }
+            System.out.println(ConsoleColors.RED + "Invalid input! It should contain only letters." + ConsoleColors.RESET);
         }
-        System.out.println(ConsoleColors.RED + "Invalid input! Please enter Male/Female only." + ConsoleColors.RESET);
-       }
     }
+    
+    public static String getValidGenderInput(String prompt) {
+        while (true) {
+            String input = getRequiredStringInput(prompt).trim().toLowerCase();
+            if (input.equals("male") || input.equals("m") || 
+                input.equals("female") || input.equals("f")) {
+                if (input.equals("m")) return "Male";
+                if (input.equals("f")) return "Female";
+                return input.substring(0, 1).toUpperCase() + input.substring(1);
+            }
+            System.out.println(ConsoleColors.RED + "Invalid input! Please enter Male/Female only." + ConsoleColors.RESET);
+        }
+    }
+    
+    public static boolean isValidMonth(String month) {
+    String[] validMonths = {
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    };
+    
+    for (String m : validMonths) {
+        if (m.equalsIgnoreCase(month)) {
+            return true;
+        }
+    }
+    return false;
+}
 
-  public static String getValidDateInput(String prompt) {
+    public static String getValidDateInput(String prompt) {
     while (true) {
         String input = getRequiredStringInput(prompt);
-        // Simple date format validation (can be enhanced)
         if (input.matches("^[a-zA-Z]+\\s\\d{1,2},\\s\\d{4}$")) {
-            return input;
+            // Extract month part
+            String month = input.split(" ")[0];
+            if (isValidMonth(month)) {
+                return input;
+            }
+            System.out.println(ConsoleColors.RED + "Invalid month! Please enter a valid month!" + ConsoleColors.RESET);
+        } else {
+            System.out.println(ConsoleColors.RED + "Invalid date format!" + ConsoleColors.RESET);
         }
-        System.out.println(ConsoleColors.RED + "Invalid date format! Please use format like 'December 25, 2006'" + ConsoleColors.RESET);
-    }
- }
-    
-    // Source from github to calculate the age!
-    public static int calculateAgeFromDOB(String dob) {
-      try {
-        // Extract year from DOB (simple approach for this format)
-        int birthYear = Integer.parseInt(dob.split(",")[1].trim());
-        int currentYear = java.time.Year.now().getValue();
-        return currentYear - birthYear;
-    } catch (Exception e) {
-        System.out.println(ConsoleColors.RED + "Error calculating age from DOB. Using default age 0." + ConsoleColors.RESET);
-        return 0;
     }
 }
+    
+    public static int calculateAgeFromDOB(String dob) {
+        try {
+            int birthYear = Integer.parseInt(dob.split(",")[1].trim());
+            int currentYear = java.time.Year.now().getValue();
+            return currentYear - birthYear;
+        } catch (Exception e) {
+            System.out.println(ConsoleColors.RED + "Error calculating age from DOB. Using default age 0." + ConsoleColors.RESET);
+            return 0;
+        }
+    }
 }

@@ -86,9 +86,33 @@ public class PatientService {
             if (toArchive != null) {
                 archivedPatients.add(toArchive);
                 patients.remove(toArchive);
+                System.out.println(ConsoleColors.GREEN + "Patient archived successfully!" + ConsoleColors.RESET);
+            } else {
+                System.out.println(ConsoleColors.RED + "Patient not found!" + ConsoleColors.RESET);
             }
         } catch (Exception e) {
             System.out.println(ConsoleColors.RED + "Error archiving patient: " + e.getMessage() + ConsoleColors.RESET);
+        }
+    }
+    
+    public void unarchivePatient(int id) {
+        try {
+            Patient toUnarchive = null;
+            for (Patient patient : archivedPatients) {
+                if (patient.getId() == id) {
+                    toUnarchive = patient;
+                    break;
+                }
+            }
+            if (toUnarchive != null) {
+                patients.add(toUnarchive);
+                archivedPatients.remove(toUnarchive);
+                System.out.println(ConsoleColors.GREEN + "Patient unarchived successfully!" + ConsoleColors.RESET);
+            } else {
+                System.out.println(ConsoleColors.RED + "Patient not found in archived records!" + ConsoleColors.RESET);
+            }
+        } catch (Exception e) {
+            System.out.println(ConsoleColors.RED + "Error unarchiving patient: " + e.getMessage() + ConsoleColors.RESET);
         }
     }
 

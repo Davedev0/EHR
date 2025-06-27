@@ -79,10 +79,10 @@ public class PatientView {
                         ConsoleColors.PURPLE + "ID: " + ConsoleColors.RESET + p.getId() + "\n" +
                         ConsoleColors.CYAN + "Name: " + ConsoleColors.RESET + p.getName() + "\n" +
                         ConsoleColors.CYAN + "Age: " + ConsoleColors.RESET + p.getAge() + "\n" +
-                        ConsoleColors.CYAN + "Birthday: " + ConsoleColors.RESET + p.getDob() + "\n" +
+                        ConsoleColors.CYAN + "Date of Birth: " + ConsoleColors.RESET + p.getDob() + "\n" +
                         ConsoleColors.CYAN + "Gender: " + ConsoleColors.RESET + p.getGender() + "\n" +
                         ConsoleColors.CYAN + "Address: " + ConsoleColors.RESET + p.getAddress() + "\n" +
-                        ConsoleColors.CYAN + "Contact: " + ConsoleColors.RESET + p.getContact() + "\n" +
+                        ConsoleColors.CYAN + "Contact Number: " + ConsoleColors.RESET + p.getContact() + "\n" +
                         ConsoleColors.CYAN + "Emergency Contact: " + ConsoleColors.RESET + p.getEmergencyContact() + "\n" +
                         ConsoleColors.CYAN + "Allergies: " + ConsoleColors.RESET + p.getAllergies() + "\n" +
                         ConsoleColors.CYAN + "Current Medications: " + ConsoleColors.RESET + p.getCurrentMeds() + "\n" +
@@ -114,11 +114,25 @@ public class PatientView {
             System.out.println(ConsoleColors.PURPLE + "Patient ID: " + ConsoleColors.RESET + id);
             
             String name = InputValidator.getValidLetterInput("Full Name: ");
-            String dob = InputValidator.getValidDateInput("Date of Birth: ");
-            int age = InputValidator.calculateAgeFromDOB(dob); 
-            System.out.println("Age: " + age); 
+            String dob;
+            int age;
+        while (true) {
+            dob = InputValidator.getValidDateInput("Date of Birth (ex: December 25, 2006): ");
+            try {
+                int birthYear = Integer.parseInt(dob.split(",")[1].trim());
+                if (birthYear > 2025) {
+                    System.out.println(ConsoleColors.RED + "Birth year cannot be after 2025!" + ConsoleColors.RESET);
+                    continue;
+                }
+                age = 2025 - birthYear; 
+                break;
+            } catch (Exception e) {
+                System.out.println(ConsoleColors.RED + "Error parsing date. Please try again." + ConsoleColors.RESET);
+            }
+        }
+        System.out.println("Age: " + age); 
             String gender = InputValidator.getValidGenderInput("Gender: ");
-            long contact = InputValidator.getLongInput("Contact: ",1000000000L, 99999999999L);
+            long contact = InputValidator.getLongInput("Contact Number: ",1000000000L, 99999999999L);
             String address = InputValidator.getRequiredStringInput("Address: ");
             long emergency = InputValidator.getLongInput("Emergency Contact: ", 1000000000L, 99999999999L);
             String allergies = InputValidator.getValidLetterInput("Allergies: ");
@@ -138,15 +152,16 @@ public class PatientView {
             for (Doctor doctor : doctors) {
                 System.out.println(doctor);
             }
-                int doctorId;
-                Doctor assignedDoctor;
-        do {
-            doctorId = InputValidator.getIntInput("Assign Doctor ID: ", 1, Integer.MAX_VALUE);
-            assignedDoctor = doctorService.getDoctorById(doctorId);
-            if (assignedDoctor == null) {
-                System.out.println(ConsoleColors.RED + "Invalid Doctor ID! Please try Again." + ConsoleColors.RESET);
-            }
-        } while (assignedDoctor == null);
+            
+            int doctorId;
+            Doctor assignedDoctor;
+            do {
+                doctorId = InputValidator.getIntInput("Assign Doctor ID: ", 1, Integer.MAX_VALUE);
+                assignedDoctor = doctorService.getDoctorById(doctorId);
+                if (assignedDoctor == null) {
+                    System.out.println(ConsoleColors.RED + "Invalid Doctor ID! Please try Again." + ConsoleColors.RESET);
+                }
+            } while (assignedDoctor == null);
             
             Patient patient = new Patient(id, name, age, dob, gender, contact, address, 
                                         emergency, allergies, meds, history, 
@@ -161,7 +176,7 @@ public class PatientView {
         }
     }
     
-       private void updatePatient() {
+    private void updatePatient() {
     try {
         MenuUtil.clearScreen();
         System.out.println(
@@ -183,26 +198,67 @@ public class PatientView {
         
         boolean confirm = InputValidator.getYesNoInput("\nAre you sure to update? (yes/no): ");
   
-          if (!confirm) {
+        if (!confirm) {
             System.out.println(ConsoleColors.GREEN + "\nUpdate cancelled!" + ConsoleColors.RESET);
             return; 
         }
         
-        System.out.println("\nEnter new values (leave blank to keep current):");
-        String name = InputValidator.getValidLetterInput("Name [" + patient.getName() + "]: ");
+        System.out.println(ConsoleColors.YELLOW + "\nEnter new values (leave blank to keep current)\n" + ConsoleColors.RESET);
+        String name = InputValidator.getUpdateLetterInput("Name [" + patient.getName() + "]: ");
         
-        String dob = InputValidator.getRequiredStringInput("DOB [" + patient.getDob() + "]: ");
-        int age = dob.isEmpty() ? patient.getAge() : InputValidator.calculateAgeFromDOB(dob);
-        if (!dob.isEmpty()) {
-            System.out.println("Age: " + age);
+        String dob;
+        int age = patient.getAge();
+        while (true) {
+            dob = InputValidator.getStringInput("Date of Birth [" + patient.getDob() + "]: ");
+            if (dob.isEmpty()) {
+                break;
+            }
+            if (!dob.matches("^[a-zA-Z]+\\s\\d{1,2},\\s\\d{4}$")) {
+                System.out.println(ConsoleColors.RED + "Invalid date format! Please use format like 'December 25, 2006'" + ConsoleColors.RESET);
+                continue;
+            }
+            
+            String month = dob.split(" ")[0];
+            if (!InputValidator.isValidMonth(month)) {
+               System.out.println(ConsoleColors.RED + "Invalid month! Please enter a valid month!" + ConsoleColors.RESET);
+               continue;
+            }
+            try {
+                int birthYear = Integer.parseInt(dob.split(",")[1].trim());
+                if (birthYear > 2025) {
+                    System.out.println(ConsoleColors.RED + "Birth year cannot be after 2025!" + ConsoleColors.RESET);
+                    continue;
+                }
+                age = 2025 - birthYear; // Using 2025 as current year
+                System.out.println("age: " + age);
+                break;
+            } catch (Exception e) {
+                System.out.println(ConsoleColors.RED + "Error parsing date. Please try again." + ConsoleColors.RESET);
+            }
         }
-        String gender = InputValidator.getValidGenderInput("Gender [" + patient.getGender() + "]: ");
+        
+        String gender;
+        while (true) {
+            String input = InputValidator.getStringInput("Gender [" + patient.getGender() + "]: ").trim().toLowerCase();
+            if (input.isEmpty()) {
+                gender = patient.getGender();
+                break;
+            }
+            if (input.equals("male") || input.equals("m") || 
+                input.equals("female") || input.equals("f")) {
+                if (input.equals("m")) gender = "Male";
+                else if (input.equals("f")) gender = "Female";
+                else gender = input.substring(0, 1).toUpperCase() + input.substring(1);
+                break;
+            }
+            System.out.println(ConsoleColors.RED + "Invalid input! Please enter Male/Female only." + ConsoleColors.RESET);
+        }
         
         long contact = patient.getContact();
         while (true) {
+            String contactInput = InputValidator.getStringInput("Contact Number [" + patient.getContact() + "]: ");
+            if (contactInput.isEmpty()) break;
             try {
-                String contactInput = InputValidator.getRequiredStringInput("Contact [" + patient.getContact() + "]: ");
-                if (contactInput.isEmpty()) break;
                 contact = Long.parseLong(contactInput);
                 if (contact < 1000000000L || contact > 99999999999L) {
                     System.out.println(ConsoleColors.RED + "Please enter valid contact number (10-11 digits)" + ConsoleColors.RESET);
@@ -214,13 +270,13 @@ public class PatientView {
             }
         }
         
-        String address = InputValidator.getRequiredStringInput("Address [" + patient.getAddress() + "]: ");
+        String address = InputValidator.getStringInput("Address [" + patient.getAddress() + "]: ");
         
         long emergency = patient.getEmergencyContact();
         while (true) {
+            String emergencyInput = InputValidator.getStringInput("Emergency [" + patient.getEmergencyContact() + "]: ");
+            if (emergencyInput.isEmpty()) break;
             try {
-                String emergencyInput = InputValidator.getRequiredStringInput("Emergency [" + patient.getEmergencyContact() + "]: ");
-                if (emergencyInput.isEmpty()) break;
                 emergency = Long.parseLong(emergencyInput);
                 if (emergency < 1000000000L || emergency > 99999999999L) {
                     System.out.println(ConsoleColors.RED + "Please enter valid emergency number (10-11 digits)" + ConsoleColors.RESET);
@@ -232,18 +288,18 @@ public class PatientView {
             }
         }
         
-        String allergies = InputValidator.getValidLetterInput("Allergies [" + patient.getAllergies() + "]: ");
-        String meds = InputValidator.getValidLetterInput("Meds [" + patient.getCurrentMeds() + "]: ");
-        String history = InputValidator.getValidLetterInput("History [" + patient.getMedicalHistory() + "]: ");
-        String diagnosis = InputValidator.getValidLetterInput("Diagnosis [" + patient.getDiagnosis() + "]: ");
-        String treatment = InputValidator.getValidLetterInput("Treatment [" + patient.getTreatmentPlan() + "]: ");
+        String allergies = InputValidator.getUpdateLetterInput("Allergies [" + patient.getAllergies() + "]: ");
+        String meds = InputValidator.getUpdateLetterInput("Medication [" + patient.getCurrentMeds() + "]: ");
+        String history = InputValidator.getUpdateLetterInput("History [" + patient.getMedicalHistory() + "]: ");
+        String diagnosis = InputValidator.getUpdateLetterInput("Diagnosis [" + patient.getDiagnosis() + "]: ");
+        String treatment = InputValidator.getUpdateLetterInput("Treatment [" + patient.getTreatmentPlan() + "]: ");
         
         Patient updated = new Patient(
             patient.getId(),
             name.isEmpty() ? patient.getName() : name,
             age,
             dob.isEmpty() ? patient.getDob() : dob,
-            gender.isEmpty() ? patient.getGender() : gender,
+            gender,
             contact,
             address.isEmpty() ? patient.getAddress() : address,
             emergency,
@@ -256,7 +312,7 @@ public class PatientView {
         );
         
         patientService.updatePatient(updated);
-        System.out.println(ConsoleColors.GREEN + "Patient updated!" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.GREEN + "\nPatient updated!" + ConsoleColors.RESET);
     } catch (Exception e) {
         System.out.println(ConsoleColors.RED + "Error updating patient: " + e.getMessage() + ConsoleColors.RESET);
     } finally {
@@ -316,9 +372,9 @@ public class PatientView {
             
             System.out.println("\nPatient to archive:");
             System.out.println(
-            ConsoleColors.PURPLE + "ID: " + ConsoleColors.RESET + patient.getId() + " | " +
-            ConsoleColors.CYAN + "Name: " + ConsoleColors.RESET + patient.getName() + " | " +
-            ConsoleColors.CYAN + "Gender: " + ConsoleColors.RESET + patient.getGender()
+                ConsoleColors.PURPLE + "ID: " + ConsoleColors.RESET + patient.getId() + " | " +
+                ConsoleColors.CYAN + "Name: " + ConsoleColors.RESET + patient.getName() + " | " +
+                ConsoleColors.CYAN + "Gender: " + ConsoleColors.RESET + patient.getGender()
             );
             
             boolean confirm = InputValidator.getYesNoInput(ConsoleColors.RED + 
@@ -327,7 +383,11 @@ public class PatientView {
             if (confirm) {
                 patientService.archivePatient(id);
                 System.out.println(ConsoleColors.GREEN + "\nArchiving patient record...");
-                Thread.sleep(1000);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
                 System.out.println("Patient record has been successfully archived!" + ConsoleColors.RESET);
             } else {
                 System.out.println(ConsoleColors.GREEN + "\nArchiving cancelled" + ConsoleColors.RESET);
@@ -355,9 +415,9 @@ public class PatientView {
                 System.out.println("\nArchived Patients:");
                 for (Patient p : patients) {
                     System.out.println(
-                    ConsoleColors.PURPLE + "ID: " + ConsoleColors.RESET + p.getId() + " | " +  
-                    ConsoleColors.CYAN + "Name: " + ConsoleColors.RESET + p.getName() + " | " +
-                    ConsoleColors.CYAN + "Gender: " + ConsoleColors.RESET + p.getGender()
+                        ConsoleColors.PURPLE + "ID: " + ConsoleColors.RESET + p.getId() + " | " +  
+                        ConsoleColors.CYAN + "Name: " + ConsoleColors.RESET + p.getName() + " | " +
+                        ConsoleColors.CYAN + "Gender: " + ConsoleColors.RESET + p.getGender()
                     );
                 }
             }
@@ -388,6 +448,52 @@ public class PatientView {
             }
         } catch (Exception e) {
             System.out.println(ConsoleColors.RED + "Error searching archived records: " + e.getMessage() + ConsoleColors.RESET);
+        } finally {
+            InputValidator.pressEnterToContinue();
+        }
+    }
+    
+    public void unarchivePatientRecords() {
+        try {
+            MenuUtil.clearScreen();
+            System.out.println(
+                "+=====================================+\n" +
+                "|       UNARCHIVE PATIENT RECORD      |\n" +
+                "+=====================================+"
+            );
+            
+            int id = InputValidator.getIntInput("Enter Patient ID to unarchive: ", 1, Integer.MAX_VALUE);
+            Patient patient = patientService.getArchivedPatientById(id);
+            
+            if (patient == null) {
+                System.out.println(ConsoleColors.RED + "\nPatient not found in archived records." + ConsoleColors.RESET);
+                return;
+            }
+            
+            System.out.println("\nPatient to unarchive:");
+            System.out.println(
+                ConsoleColors.PURPLE + "ID: " + ConsoleColors.RESET + patient.getId() + " | " +
+                ConsoleColors.CYAN + "Name: " + ConsoleColors.RESET + patient.getName() + " | " +
+                ConsoleColors.CYAN + "Gender: " + ConsoleColors.RESET + patient.getGender()
+            );
+            
+            boolean confirm = InputValidator.getYesNoInput(ConsoleColors.GREEN + 
+                "\nConfirm unarchiving this record? (yes/no): " + ConsoleColors.RESET);
+            
+            if (confirm) {
+                patientService.unarchivePatient(id);
+                System.out.println(ConsoleColors.GREEN + "\nUnarchiving patient record...");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+                System.out.println("Patient record has been successfully restored!" + ConsoleColors.RESET);
+            } else {
+                System.out.println(ConsoleColors.GREEN + "\nUnarchiving cancelled" + ConsoleColors.RESET);
+            }
+        } catch (Exception e) {
+            System.out.println(ConsoleColors.RED + "Error unarchiving patient: " + e.getMessage() + ConsoleColors.RESET);
         } finally {
             InputValidator.pressEnterToContinue();
         }
