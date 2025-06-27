@@ -1,6 +1,8 @@
 # 📋 Electronic Health Record (EHR) System  
 **Final Project for CC103 - Object-Oriented Programming**  
 
+*Developed by Davedev*  
+
 ![Java](https://img.shields.io/badge/Java-17-blue)  
 ![License](https://img.shields.io/badge/License-MIT-green)  
 
