@@ -65,7 +65,7 @@ A **console-based Electronic Health Record (EHR) System** built with Java, desig
 
 2. **Steps**:  
    ```bash
-   git clone [Your-Repo-Link]  
+   git clone 
    cd EHR-System  
    javac Main.java  
    java Main  
